@@ -2,21 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import client from '../api/client.js';
 import PRICING_PLANS from '../pricing';
+import PERKS_BY_CATEGORY from '../pricing/perks';
 
 const todayStr = () => new Date().toISOString().slice(0, 10);
-
-const LOREM_IPSUM =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor ' +
-  'incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
-  'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-
-function hoursBetween(start, end) {
-  if (!start || !end) return 0;
-  const [sh, sm] = start.split(':').map(Number);
-  const [eh, em] = end.split(':').map(Number);
-  const minutes = (eh * 60 + em) - (sh * 60 + sm);
-  return minutes > 0 ? minutes / 60 : 0;
-}
 
 export default function BookingPage() {
   const { categoryKey } = useParams();
@@ -40,6 +28,14 @@ export default function BookingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [selectedPlanKey, setSelectedPlanKey] = useState(PRICING_PLANS[0].key);
   const [seatCount, setSeatCount] = useState(1);
+  const [activeGroup, setActiveGroup] = useState('short-term');
+
+  function selectGroup(group) {
+    setActiveGroup(group);
+    const groupPlans = PRICING_PLANS.filter((p) => p.group === group);
+    const defaultPlan = groupPlans.find((p) => p.featured) || groupPlans[0];
+    if (defaultPlan) setSelectedPlanKey(defaultPlan.key);
+  }
 
   useEffect(() => {
     client
@@ -114,8 +110,9 @@ export default function BookingPage() {
 
   const selectedPlan = PRICING_PLANS.find((p) => p.key === selectedPlanKey) || PRICING_PLANS[0];
   const selectedRate = selectedPlan.rates[category.key] || 0;
-  const bookedHours = hoursBetween(form.startTime, form.endTime);
-  const estimatedPrice = Math.round(bookedHours * selectedRate * seatCount);
+  const estimatedPrice = selectedRate * seatCount;
+  const visiblePlans = PRICING_PLANS.filter((p) => p.group === activeGroup);
+  const perks = PERKS_BY_CATEGORY[category.key] || [];
 
   return (
     <div className="booking-page">
@@ -124,32 +121,64 @@ export default function BookingPage() {
       </Link>
       <h2>Book: {category.name}</h2>
 
-      <p className="seat-detail__desc">{LOREM_IPSUM}</p>
+      <p className="seat-detail__desc">{category.description}</p>
 
       <img src="/hero-office.png" alt={category.name} className="seat-detail__image" />
 
-      <div className="pricing-plans">
-        {PRICING_PLANS.map((plan) => (
+      <section className="pricing-section">
+        <h2 className="pricing-section__title">Workspace Access Plans</h2>
+        <p className="pricing-section__subtitle">Choose the perfect plan for your professional needs</p>
+
+        <div className="pricing-tabs">
           <button
             type="button"
-            key={plan.key}
-            className={`pricing-plan${plan.key === selectedPlanKey ? ' pricing-plan--selected' : ''}`}
-            onClick={() => setSelectedPlanKey(plan.key)}
+            className={`pricing-tab${activeGroup === 'short-term' ? ' pricing-tab--active' : ''}`}
+            onClick={() => selectGroup('short-term')}
           >
-            <span className="pricing-plan__name">{plan.name}</span>
-            <span className="pricing-plan__price">
-              ₹{plan.rates[category.key] || 0}<span className="pricing-plan__unit">/hour</span>
-            </span>
-            {plan.savingsNote && <span className="pricing-plan__savings">{plan.savingsNote}</span>}
-            {plan.validity && <span className="pricing-plan__note">{plan.validity}</span>}
-            <ul className="pricing-plan__features">
-              {plan.features.map((feature) => (
-                <li key={feature}>{feature}</li>
+            [ Short-Term Passes ]
+          </button>
+          <button
+            type="button"
+            className={`pricing-tab${activeGroup === 'long-term' ? ' pricing-tab--active' : ''}`}
+            onClick={() => selectGroup('long-term')}
+          >
+            [ Long-Term Memberships ]
+          </button>
+        </div>
+
+        <div className="pricing-plans">
+          {visiblePlans.map((plan) => (
+            <button
+              type="button"
+              key={plan.key}
+              className={`pricing-plan${plan.key === selectedPlanKey ? ' pricing-plan--selected' : ''}${plan.featured ? ' pricing-plan--featured' : ''}`}
+              onClick={() => setSelectedPlanKey(plan.key)}
+            >
+              {plan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
+              <span className="pricing-plan__header">{plan.name}</span>
+              <span className="pricing-plan__price">₹{plan.rates[category.key] || 0}</span>
+              <span className="pricing-plan__note">{plan.basis}</span>
+              {plan.featured && <span className="pricing-plan__star">★</span>}
+              <span className="pricing-plan__cta">Get Started</span>
+            </button>
+          ))}
+        </div>
+
+        {perks.length > 0 && (
+          <div className="pricing-perks">
+            <h3 className="pricing-perks__title">
+              {activeGroup === 'short-term'
+                ? 'Included in All Multi-Hour Plans (3H+):'
+                : 'Included in All Membership Plans:'}
+            </h3>
+            <ul className="pricing-perks__list">
+              {perks.map((perk) => (
+                <li key={perk}>{perk}</li>
               ))}
             </ul>
-          </button>
-        ))}
-      </div>
+          </div>
+        )}
+      </section>
 
       <form className="booking-form" onSubmit={handleSubmit}>
         <label>
@@ -239,10 +268,10 @@ export default function BookingPage() {
 
         {submitError && <p className="error">{submitError}</p>}
 
-        {bookedHours > 0 && (
+        {form.startTime && form.endTime && (
           <div className="booking-total">
             <span className="booking-total__label">
-              Final Amount ({selectedPlan.name}) — {seatCount} seat{seatCount === 1 ? '' : 's'} × {bookedHours % 1 === 0 ? bookedHours : bookedHours.toFixed(1)} hour{bookedHours === 1 ? '' : 's'}
+              Final Amount ({selectedPlan.name} — {selectedPlan.basis}) — {seatCount} seat{seatCount === 1 ? '' : 's'}
             </span>
             <span className="booking-total__value">₹{estimatedPrice}</span>
           </div>

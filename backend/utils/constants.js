@@ -1,27 +1,31 @@
 const SEAT_CATEGORIES = [
   {
     key: 'common-area',
-    name: 'Common Area',
+    name: '4-Seater Desk - Non View',
     capacity: 4,
-    description: 'Shared open seating area, great for casual work and networking.',
+    description:
+      'A quiet, professional shared workspace designed for focused work. Ideal for consultants, remote professionals and small teams who need a productive desk without the distractions of a large coworking floor.',
   },
   {
     key: 'individual-desk',
-    name: 'Individual Desk',
+    name: 'Individual Window View',
     capacity: 2,
-    description: 'Dedicated single-person desks for focused, quiet work.',
+    description:
+      'Your own dedicated workspace with a window view, giving you privacy, natural light and a focused environment. Ideal for long work sessions, confidential calls and professionals who prefer working independently.',
   },
   {
     key: 'two-seater-desk',
-    name: '2-Seater Desk',
+    name: '2-Seater Window View',
     capacity: 4,
-    description: 'Shared desks for two, ideal for pair work or partners.',
+    description:
+      'Enjoy a more relaxed work setting with natural light and a window-side view, with a wall behind for complete privacy. Perfect for professionals looking for a quieter, comfortable workspace with a little more openness and visual breathing room. Enjoy quiet work alongside a walking passage, a glimpse of international business news, and an in-house coffee/snack station.',
   },
   {
     key: 'manager-cabin',
-    name: 'Manager Cabin',
+    name: 'Solo Corner Desk',
     capacity: 3,
-    description: 'Private cabin with 1 manager desk and seating for up to 2 guests.',
+    description:
+      'Our most private and exclusive workspace, tucked into a quiet corner for maximum focus. Designed for deep work, important calls, creative thinking and anyone who values personal space over the energy of a busy coworking environment.',
   },
 ];
 

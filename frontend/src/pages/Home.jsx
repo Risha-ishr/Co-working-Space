@@ -4,10 +4,10 @@ import SeatCard from '../components/SeatCard.jsx';
 import Carousel from '../components/Carousel.jsx';
 
 const HERO_SLIDES = [
-  { src: '/entrance.jpg', alt: 'ISHR co-working space entrance' },
-  { src: '/hero-office.png', alt: 'ISHR co-working space seating area' },
-  { src: '/entrance.jpg', alt: 'ISHR co-working space entrance' },
-  { src: '/hero-office.png', alt: 'ISHR co-working space seating area' },
+  { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
+  { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
+  { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
+  { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
 ];
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
     <div className="home">
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
-        <h1>Find your seat at ISHR</h1>
+        <h1>Find your seat at The Dialogue House 101</h1>
         <p>Pick a seating category, choose your time, and you&apos;re set.</p>
       </section>
 
