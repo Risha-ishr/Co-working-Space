@@ -33,6 +33,9 @@ export default function Confirmation() {
             <strong>Guests:</strong> {booking.guests}
           </li>
         )}
+        <li>
+          <strong>Additional Seat:</strong> {booking.additionalSeat ? 'Seat Selected' : 'Not selected'}
+        </li>
       </ul>
       <Link to="/" className="btn btn--primary">
         Book another seat

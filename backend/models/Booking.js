@@ -11,6 +11,7 @@ const bookingSchema = new mongoose.Schema({
   startTime: { type: String, required: true }, // HH:mm
   endTime: { type: String, required: true }, // HH:mm
   guests: { type: Number, default: 0 },
+  additionalSeat: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
 });
 

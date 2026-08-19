@@ -1,0 +1,19 @@
+.add-seat-btn{
+    background: var(--navy);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  width: 250px;
+  height: 40px;
+}
+.add-seat-btn:hover {
+    cursor: pointer;
+}
+.add-seat-selected{
+    background: var(--accent);
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  width: 250px;
+  height: 40px;
+}

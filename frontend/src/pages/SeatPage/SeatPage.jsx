@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import client from '../api/client.js';
-import SeatCard from '../components/SeatCard.jsx';
-import Carousel from '../components/Carousel.jsx';
+import client from '../../api/client.js';
+import SeatCard from '../../components/SeatCard.jsx';
+import Carousel from '../../components/Carousel.jsx';
 
 const HERO_SLIDES = [
   { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
@@ -10,7 +10,7 @@ const HERO_SLIDES = [
   { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
 ];
 
-export default function Home() {
+export default function SeatPage() {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
 

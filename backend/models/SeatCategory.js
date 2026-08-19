@@ -5,6 +5,7 @@ const seatCategorySchema = new mongoose.Schema({
   name: { type: String, required: true },
   capacity: { type: Number, required: true },
   description: { type: String, default: '' },
+  smalldescription: { type: String, default: '' },
 });
 
 module.exports = mongoose.model('SeatCategory', seatCategorySchema);

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import client from '../api/client.js';
-import PRICING_PLANS from '../pricing';
-import PERKS_BY_CATEGORY from '../pricing/perks';
-
+import client from '../../api/client.js';
+import PRICING_PLANS from '../../pricing/index.js';
+import PERKS_BY_CATEGORY from '../../pricing/perks.js';
+import './BookingPage.scss';
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
 export default function BookingPage() {
@@ -29,6 +29,7 @@ export default function BookingPage() {
   const [selectedPlanKey, setSelectedPlanKey] = useState(PRICING_PLANS[0].key);
   const [seatCount, setSeatCount] = useState(1);
   const [activeGroup, setActiveGroup] = useState('short-term');
+  const [additionalSeat, setAdditionalSeat] = useState(false);
 
   function selectGroup(group) {
     setActiveGroup(group);
@@ -85,7 +86,7 @@ export default function BookingPage() {
     setSubmitError('');
     setSubmitting(true);
     try {
-      const res = await client.post('/bookings', { category: categoryKey, ...form });
+      const res = await client.post('/bookings', { category: categoryKey, ...form, additionalSeat });
       navigate('/confirmation', { state: { booking: res.data, categoryName: category.name } });
     } catch (err) {
       setSubmitError(err.response?.data?.error || 'Something went wrong. Please try again.');
@@ -116,7 +117,7 @@ export default function BookingPage() {
 
   return (
     <div className="booking-page">
-      <Link to="/" className="back-link">
+      <Link to="/seat" className="back-link">
         ← Back to seating options
       </Link>
       <h2>Book: {category.name}</h2>
@@ -226,6 +227,13 @@ export default function BookingPage() {
             ))}
           </select>
         </label>
+        <button
+          type="button"
+          className={additionalSeat ? "add-seat-selected" : "add-seat-btn"}
+          onClick={() => setAdditionalSeat((v) => !v)}
+        >
+          {additionalSeat ? 'Seat Selected' : 'Book Additional Seat'}
+        </button>
 
         {isCabin && (
           <label>

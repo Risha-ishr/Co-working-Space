@@ -15,23 +15,23 @@ export default function Carousel({ slides }) {
   }, [index, slides.length]);
 
   return (
-    <div className="carousel">
+    <div className="hero-carousel">
       {slides.map((slide, i) => (
         <img
           key={i}
           src={slide.src}
           alt={slide.alt}
-          className={`carousel__slide ${i === index ? 'carousel__slide--active' : ''}`}
+          className={`hero-carousel__slide ${i === index ? 'hero-carousel__slide--active' : ''}`}
           onClick={goToNext}
         />
       ))}
       {slides.length > 1 && (
-        <div className="carousel__dots">
+        <div className="hero-carousel__dots">
           {slides.map((slide, i) => (
             <button
               key={i}
               type="button"
-              className={`carousel__dot ${i === index ? 'carousel__dot--active' : ''}`}
+              className={`hero-carousel__dot ${i === index ? 'hero-carousel__dot--active' : ''}`}
               aria-label={`Go to slide ${i + 1}`}
               onClick={() => setIndex(i)}
             />

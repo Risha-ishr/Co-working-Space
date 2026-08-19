@@ -20,7 +20,7 @@ router.get('/availability', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { category, name, email, date, startTime, endTime, guests } = req.body;
+  const { category, name, email, date, startTime, endTime, guests, additionalSeat } = req.body;
 
   const categoryDoc = await SeatCategory.findOne({ key: category });
   const fieldError = validateFields({ category, name, email, date, startTime, endTime, guests }, categoryDoc);
@@ -40,6 +40,7 @@ router.post('/', async (req, res) => {
     startTime,
     endTime,
     guests: category === 'manager-cabin' ? Number(guests) || 0 : 0,
+    additionalSeat: Boolean(additionalSeat),
   });
 
   res.status(201).json(booking);
