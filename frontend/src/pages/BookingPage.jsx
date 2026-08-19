@@ -6,6 +6,17 @@ import PERKS_BY_CATEGORY from '../pricing/perks';
 
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
+function loadRazorpayScript() {
+  return new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 export default function BookingPage() {
   const { categoryKey } = useParams();
   const navigate = useNavigate();
@@ -84,12 +95,56 @@ export default function BookingPage() {
     e.preventDefault();
     setSubmitError('');
     setSubmitting(true);
+
+    const plan = PRICING_PLANS.find((p) => p.key === selectedPlanKey) || PRICING_PLANS[0];
+
     try {
-      const res = await client.post('/bookings', { category: categoryKey, ...form });
-      navigate('/confirmation', { state: { booking: res.data, categoryName: category.name } });
+      const { data: order } = await client.post('/payments/order', {
+        category: categoryKey,
+        planKey: selectedPlanKey,
+        seatCount,
+        ...form,
+      });
+
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        setSubmitError('Unable to load payment gateway. Check your connection and try again.');
+        setSubmitting(false);
+        return;
+      }
+
+      const rzp = new window.Razorpay({
+        key: order.keyId,
+        amount: order.amount * 100,
+        currency: order.currency,
+        order_id: order.orderId,
+        name: 'Co-working Space',
+        description: `${category.name} — ${plan.name}`,
+        prefill: { name: form.name, email: form.email },
+        theme: { color: '#111111' },
+        handler: async (response) => {
+          try {
+            const res = await client.post('/payments/verify', response);
+            navigate('/confirmation', { state: { booking: res.data, categoryName: category.name } });
+          } catch (err) {
+            setSubmitError(err.response?.data?.error || 'Payment verification failed. Please contact support.');
+          } finally {
+            setSubmitting(false);
+          }
+        },
+        modal: {
+          ondismiss: () => setSubmitting(false),
+        },
+      });
+
+      rzp.on('payment.failed', (resp) => {
+        setSubmitError(resp.error?.description || 'Payment failed. Please try again.');
+        setSubmitting(false);
+      });
+
+      rzp.open();
     } catch (err) {
       setSubmitError(err.response?.data?.error || 'Something went wrong. Please try again.');
-    } finally {
       setSubmitting(false);
     }
   }
@@ -278,7 +333,7 @@ export default function BookingPage() {
         )}
 
         <button type="submit" className="btn btn--primary" disabled={!canSubmit}>
-          {submitting ? 'Booking…' : 'Confirm Booking'}
+          {submitting ? 'Processing…' : `Pay ₹${estimatedPrice} & Book`}
         </button>
       </form>
     </div>

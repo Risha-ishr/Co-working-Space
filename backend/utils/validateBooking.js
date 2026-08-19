@@ -43,7 +43,8 @@ function validateFields({ category, name, email, date, startTime, endTime, guest
 }
 
 function occupancyOf(booking) {
-  return booking.category === 'manager-cabin' ? 1 + (booking.guests || 0) : 1;
+  const seats = booking.seatCount || 1;
+  return booking.category === 'manager-cabin' ? seats + (booking.guests || 0) : seats;
 }
 
 // Checks remaining capacity for a category/date/time window, applying a buffer after each

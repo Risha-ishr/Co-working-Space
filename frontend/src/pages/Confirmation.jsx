@@ -33,6 +33,12 @@ export default function Confirmation() {
             <strong>Guests:</strong> {booking.guests}
           </li>
         )}
+        <li>
+          <strong>Amount paid:</strong> ₹{booking.amount}
+        </li>
+        <li>
+          <strong>Payment ID:</strong> {booking.razorpayPaymentId}
+        </li>
       </ul>
       <Link to="/" className="btn btn--primary">
         Book another seat
