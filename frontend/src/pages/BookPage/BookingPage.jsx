@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import client from '../../api/client.js';
 import PRICING_PLANS from '../../pricing/index.js';
 import PERKS_BY_CATEGORY from '../../pricing/perks.js';
+import IMAGE_BY_CATEGORY from '../../pricing/images.js';
 import './BookingPage.scss';
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
@@ -124,7 +125,12 @@ export default function BookingPage() {
 
       <p className="seat-detail__desc">{category.description}</p>
 
-      <img src="/hero-office.png" alt={category.name} className="seat-detail__image" />
+      <img
+        src={(IMAGE_BY_CATEGORY[category.key] || { src: '/hero-office.png' }).src}
+        alt={category.name}
+        className="seat-detail__image"
+        style={{ objectPosition: (IMAGE_BY_CATEGORY[category.key] || { position: 'center' }).position }}
+      />
 
       <section className="pricing-section">
         <h2 className="pricing-section__title">Workspace Access Plans</h2>

@@ -6,8 +6,9 @@ import Carousel from '../../components/Carousel.jsx';
 const HERO_SLIDES = [
   { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
   { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
-  { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
-  { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
+  { src: '/FourSeatView.jpeg', alt: 'The Dialogue House 101 entrance' },
+  { src: '/TwoSeatBackView.jpeg', alt: 'The Dialogue House 101 seating area' },
+  // { src: '/WindowView.jpeg', alt: 'The Dialogue House 101 seating area' },
 ];
 
 export default function SeatPage() {
