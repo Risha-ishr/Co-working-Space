@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../public/logo.png';
+
 export default function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <header className="navbar">
       <Link to="/" className="navbar__brand">
@@ -15,15 +18,12 @@ export default function Navbar() {
         </span>
       </Link>
 
-    
-
-      {/* <a className="btn btn--navy navbar__cta">
-        📅 Book Your Seat
-      </a> */}
-      <span>
-        Open daily · 8:00 AM – 7:00 PM
-      </span>
-      
+      <div className="navbar__visit">
+        <span>Open daily · 8:00 AM – 7:00 PM</span>
+        <button className="btn btn--navy navbar__visit-btn" onClick={() => navigate('/visit')}>
+          Visit Us
+        </button>
+      </div>
     </header>
   );
 }

@@ -34,9 +34,9 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
           </p>
           <div className="hero-banner__ctas">
             <a className="btn btn--navy" onClick={() =>  navigate('/seat')}>
-              📅 Book a Tour
+              📅 Book a Seat
             </a>
-            <a className="btn btn--outline" onClick={() =>  navigate('/seat')}>
+            <a className="btn btn--outline" onClick={() =>  navigate('/visit')}>
               👤 Schedule a Meeting
             </a>
           </div>

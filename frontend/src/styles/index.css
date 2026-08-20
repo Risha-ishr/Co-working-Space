@@ -103,10 +103,93 @@ body {
   white-space: nowrap;
 }
 
+.navbar__visit {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.navbar__visit span {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.navbar__visit-btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+/* .modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 28, 56, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+} */
+
+.modal {
+  position: relative;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.modal__title {
+  margin: 0 0 20px;
+  color: var(--navy);
+  text-align: center;
+}
+
+.visit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.visit-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.visit-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+.visit-form__whatsapp {
+  text-align: center;
+  margin-top: 4px;
+}
+
 .page {
   flex: 1;
-  width: 1100px;
-  max-width: 100%;
+  /* width: 1100px; */
+  /* max-width: 100%; */
   margin: 0 auto;
   padding: 40px 24px 80px;
 }
