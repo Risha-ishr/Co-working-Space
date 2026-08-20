@@ -6,7 +6,7 @@ export default {
   featured: true,
   rates: {
     'common-area':     16666,
-    'two-seater-desk': 19166,
+    'two-seater-desk': 19000,
     'individual-desk': 20833,
     'manager-cabin':   22499,
   },
