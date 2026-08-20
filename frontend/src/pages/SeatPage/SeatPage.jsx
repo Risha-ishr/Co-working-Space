@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../../api/client.js';
 import SeatCard from '../../components/SeatCard.jsx';
 import Carousel from '../../components/Carousel.jsx';
@@ -12,6 +13,7 @@ const HERO_SLIDES = [
 ];
 
 export default function SeatPage() {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
 
@@ -24,6 +26,9 @@ export default function SeatPage() {
 
   return (
     <div className="home">
+      <a className="back-link" onClick={() => navigate('/')}>
+        ← Back to Home
+      </a>
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
         <h1 className='seat-section__title'>Find your seat at The Dialogue House 101</h1>

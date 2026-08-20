@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import client from '../../api/client.js';
 
 export default function VisitPage() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: '', date: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -29,6 +31,9 @@ export default function VisitPage() {
   if (submitted) {
     return (
       <div className="modal">
+        <a className="back-link" onClick={() => navigate('/')}>
+          ← Back to Home
+        </a>
         <h2 className="modal__title">Thanks, {form.name}!</h2>
         <p>We&apos;ve received your visit request for {form.date}. Our team will reach out to confirm.</p>
       </div>
@@ -37,6 +42,9 @@ export default function VisitPage() {
 
   return (
     <div className="modal">
+      <a className="back-link" onClick={() => navigate('/')}>
+        ← Back to Home
+      </a>
       <h2 className="modal__title">Plan Your Visit</h2>
       <form className="visit-form" onSubmit={handleSubmit}>
         <label>
