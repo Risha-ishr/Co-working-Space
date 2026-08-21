@@ -5,11 +5,11 @@ import SeatCard from '../../components/SeatCard.jsx';
 import Carousel from '../../components/Carousel.jsx';
 
 const HERO_SLIDES = [
-  { src: '/entrance.jpg', alt: 'The Dialogue House 101 entrance' },
-  { src: '/hero-office.png', alt: 'The Dialogue House 101 seating area' },
-  { src: '/FourSeatView.jpeg', alt: 'The Dialogue House 101 entrance' },
-  { src: '/TwoSeatBackView.jpeg', alt: 'The Dialogue House 101 seating area' },
-  // { src: '/WindowView.jpeg', alt: 'The Dialogue House 101 seating area' },
+  { src: '/entrance.jpg', alt: 'QUIET WORK 101 entrance' },
+  { src: '/hero-office.png', alt: 'QUIET WORK 101 seating area' },
+  { src: '/FourSeatView.jpeg', alt: 'QUIET WORK 101 entrance' },
+  { src: '/TwoSeatBackView.jpeg', alt: 'QUIET WORK 101 seating area' },
+  // { src: '/WindowView.jpeg', alt: 'QUIET WORK 101 seating area' },
 ];
 
 export default function SeatPage() {
@@ -31,7 +31,7 @@ export default function SeatPage() {
       </a>
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
-        <h1 className='seat-section__title'>Find your seat at The Dialogue House 101</h1>
+        <h1 className='seat-section__title'>Find your seat at QUIET WORK 101</h1>
         <p>Pick a seating category, choose your time, and you&apos;re set.</p>
       </section>
 

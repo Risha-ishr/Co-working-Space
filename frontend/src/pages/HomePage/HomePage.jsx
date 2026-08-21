@@ -43,7 +43,7 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
         </div>
 
         <div className="hero-banner__media">
-          <img src="/hero-building.jpg" alt="DNK Square, home of The Dialogue House 101" />
+          <img src="/hero-building.jpg" alt="DNK Square, home of QUIET WORK 101" />
         </div>
 
         <aside className="hero-banner__landmarks">
@@ -80,7 +80,7 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
 
         <div className="location-strip__gallery">
           {GALLERY_IMAGES.map((src) => (
-            <img key={src} src={src} alt="The Dialogue House 101 interiors" />
+            <img key={src} src={src} alt="QUIET WORK 101 interiors" />
           ))}
         </div>
       </section>
@@ -98,7 +98,7 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
       </section>
 
       <section className="seat-section" id="spaces">
-        <h2 className="seat-section__title">Find your seat at The Dialogue House 101</h2>
+        <h2 className="seat-section__title">Find your seat at QUIET WORK 101</h2>
         <p className="seat-section__subtitle">Pick a seating category, choose your time, and you&apos;re set.</p>
       </section>
     </div>

@@ -48,8 +48,8 @@ body {
 }
 
 .navbar__logo {
-  width: 44px;
-  height: 44px;
+  width: 70px;
+  height: 70px;
   flex-shrink: 0;
   border-radius: 50%;
   border: 2px solid var(--gold);

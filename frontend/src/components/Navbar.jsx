@@ -7,12 +7,12 @@ export default function Navbar() {
   return (
     <header className="navbar">
       <Link to="/" className="navbar__brand">
-        <img src={logo} className="navbar__logo" alt="The Dialogue House 101 logo"  />
+        <img src={logo} className="navbar__logo" alt="QUIET WORK 101 logo"  />
         <span className="navbar__brand-text">
           <span className="navbar__brand-name">
-            The Dialogue
+            QUIET 
             <br />
-            House 101
+            WORK 101
           </span>
           <span className="navbar__brand-tag">Less Noise. More Thought.</span>
         </span>
