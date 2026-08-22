@@ -641,6 +641,64 @@ body {
   margin: 4px 0 14px;
 }
 
+.pricing-plan--group {
+  cursor: default;
+}
+
+.pricing-plan__options {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+  width: 100%;
+  padding: 16px 0;
+}
+
+.pricing-plan__option {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+.pricing-plan__option:not(:first-child) {
+  border-left: 1px solid var(--border);
+}
+
+.pricing-plan__option-price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.pricing-plan__option-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.pricing-plan__option-cta {
+  display: block;
+  width: 100%;
+  padding: 6px 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--accent-dark);
+  background: var(--surface);
+}
+
+.pricing-plan__option--selected .pricing-plan__option-cta {
+  background: var(--accent-dark);
+  color: #ffffff;
+  border-color: var(--accent-dark);
+}
+
 .pricing-plan__star {
   color: #c9922a;
   font-size: 1rem;
@@ -662,6 +720,12 @@ body {
 
 .pricing-plan--featured .pricing-plan__cta {
   background: #e3f0ea;
+  border-color: var(--accent-dark);
+}
+
+.pricing-plan--selected .pricing-plan__cta {
+  background: var(--accent-dark);
+  color: #ffffff;
   border-color: var(--accent-dark);
 }
 

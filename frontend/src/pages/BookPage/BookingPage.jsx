@@ -7,6 +7,21 @@ import IMAGE_BY_CATEGORY from '../../pricing/images.js';
 import './BookingPage.scss';
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
+function groupPlansByName(plans) {
+  const groups = [];
+  const byName = new Map();
+  for (const plan of plans) {
+    let group = byName.get(plan.name);
+    if (!group) {
+      group = { name: plan.name, plans: [] };
+      byName.set(plan.name, group);
+      groups.push(group);
+    }
+    group.plans.push(plan);
+  }
+  return groups;
+}
+
 export default function BookingPage() {
   const { categoryKey } = useParams();
   const navigate = useNavigate();
@@ -114,6 +129,7 @@ export default function BookingPage() {
   const selectedRate = selectedPlan.rates[category.key] || 0;
   const estimatedPrice = selectedRate * seatCount;
   const visiblePlans = PRICING_PLANS.filter((p) => p.group === activeGroup);
+  const visiblePlanGroups = groupPlansByName(visiblePlans);
   const perks = PERKS_BY_CATEGORY[category.key] || [];
 
   return (
@@ -154,21 +170,60 @@ export default function BookingPage() {
         </div>
 
         <div className="pricing-plans">
-          {visiblePlans.map((plan) => (
-            <button
-              type="button"
-              key={plan.key}
-              className={`pricing-plan${plan.key === selectedPlanKey ? ' pricing-plan--selected' : ''}${plan.featured ? ' pricing-plan--featured' : ''}`}
-              onClick={() => setSelectedPlanKey(plan.key)}
-            >
-              {plan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
-              <span className="pricing-plan__header">{plan.name}</span>
-              <span className="pricing-plan__price">₹{plan.rates[category.key] || 0}</span>
-              <span className="pricing-plan__note">{plan.basis}</span>
-              {plan.featured && <span className="pricing-plan__star">★</span>}
-              <span className="pricing-plan__cta">Get Started</span>
-            </button>
-          ))}
+          {visiblePlanGroups.map((group) => {
+            const isMulti = group.plans.length > 1;
+            const defaultPlan = group.plans.find((p) => p.featured) || group.plans[group.plans.length - 1];
+            const isSelected = group.plans.some((p) => p.key === selectedPlanKey);
+
+            if (isMulti) {
+              return (
+                <div
+                  key={group.name}
+                  className={`pricing-plan pricing-plan--group${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
+                >
+                  {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
+                  <span className="pricing-plan__header">{group.name}</span>
+                  <div className="pricing-plan__options">
+                    {group.plans.map((p) => (
+                      <div
+                        key={p.key}
+                        role="button"
+                        tabIndex={0}
+                        className={`pricing-plan__option${p.key === selectedPlanKey ? ' pricing-plan__option--selected' : ''}`}
+                        onClick={() => setSelectedPlanKey(p.key)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            setSelectedPlanKey(p.key);
+                          }
+                        }}
+                      >
+                        <span className="pricing-plan__option-price">₹{p.rates[category.key] || 0}</span>
+                        <span className="pricing-plan__option-note">{p.basis}</span>
+                        <span className="pricing-plan__option-cta">Get Started</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <button
+                type="button"
+                key={group.name}
+                className={`pricing-plan${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
+                onClick={() => setSelectedPlanKey(defaultPlan.key)}
+              >
+                {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
+                <span className="pricing-plan__header">{group.name}</span>
+                <span className="pricing-plan__price">₹{defaultPlan.rates[category.key] || 0}</span>
+                <span className="pricing-plan__note">{defaultPlan.basis}</span>
+                {defaultPlan.featured && <span className="pricing-plan__star">★</span>}
+                <span className="pricing-plan__cta">Get Started</span>
+              </button>
+            );
+          })}
         </div>
 
         {perks.length > 0 && (
