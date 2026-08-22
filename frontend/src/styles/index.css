@@ -425,6 +425,7 @@ body {
 
 .seat-section {
   scroll-margin-top: 24px;
+  text-align: center;
 }
 
 .seat-section__title {
@@ -520,6 +521,7 @@ body {
   margin-bottom: 16px;
   color: var(--accent-dark);
   text-decoration: none;
+  cursor: pointer;
 }
 
 .booking-page {
