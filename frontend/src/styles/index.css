@@ -51,7 +51,7 @@ body {
   width: 70px;
   height: 70px;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: 25%;
   border: 2px solid var(--gold);
   color: var(--navy);
   font-weight: 800;
