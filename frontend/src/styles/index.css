@@ -561,6 +561,21 @@ body {
   margin: 0 0 24px;
 }
 
+.pricing-group {
+  margin-bottom: 40px;
+}
+
+.pricing-group__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--gold);
+}
+
 .pricing-tabs {
   display: flex;
   border-radius: 10px;

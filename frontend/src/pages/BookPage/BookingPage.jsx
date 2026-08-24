@@ -44,15 +44,7 @@ export default function BookingPage() {
   const [submitting, setSubmitting] = useState(false);
   const [selectedPlanKey, setSelectedPlanKey] = useState(PRICING_PLANS[0].key);
   const [seatCount, setSeatCount] = useState(1);
-  const [activeGroup, setActiveGroup] = useState('short-term');
   const [additionalSeat, setAdditionalSeat] = useState(false);
-
-  function selectGroup(group) {
-    setActiveGroup(group);
-    const groupPlans = PRICING_PLANS.filter((p) => p.group === group);
-    const defaultPlan = groupPlans.find((p) => p.featured) || groupPlans[0];
-    if (defaultPlan) setSelectedPlanKey(defaultPlan.key);
-  }
 
   useEffect(() => {
     client
@@ -128,9 +120,67 @@ export default function BookingPage() {
   const selectedPlan = PRICING_PLANS.find((p) => p.key === selectedPlanKey) || PRICING_PLANS[0];
   const selectedRate = selectedPlan.rates[category.key] || 0;
   const estimatedPrice = selectedRate * seatCount;
-  const visiblePlans = PRICING_PLANS.filter((p) => p.group === activeGroup);
-  const visiblePlanGroups = groupPlansByName(visiblePlans);
   const perks = PERKS_BY_CATEGORY[category.key] || [];
+
+  function renderPlanGroups(group) {
+    const groupPlans = PRICING_PLANS.filter((p) => p.group === group);
+    const planGroups = groupPlansByName(groupPlans);
+
+    return planGroups.map((g) => {
+      const isMulti = g.plans.length > 1;
+      const defaultPlan = g.plans.find((p) => p.featured) || g.plans[g.plans.length - 1];
+      const isSelected = g.plans.some((p) => p.key === selectedPlanKey);
+
+      if (isMulti) {
+        return (
+          <div
+            key={g.name}
+            className={`pricing-plan pricing-plan--group${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
+          >
+            {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
+            <span className="pricing-plan__header">{g.name}</span>
+            <div className="pricing-plan__options">
+              {g.plans.map((p) => (
+                <div
+                  key={p.key}
+                  role="button"
+                  tabIndex={0}
+                  className={`pricing-plan__option${p.key === selectedPlanKey ? ' pricing-plan__option--selected' : ''}`}
+                  onClick={() => setSelectedPlanKey(p.key)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedPlanKey(p.key);
+                    }
+                  }}
+                >
+                  <span className="pricing-plan__option-price">₹{p.rates[category.key] || 0}</span>
+                  <span className="pricing-plan__option-note">{p.basis}</span>
+                  <span className="pricing-plan__option-cta">Get Started</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <button
+          type="button"
+          key={g.name}
+          className={`pricing-plan${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
+          onClick={() => setSelectedPlanKey(defaultPlan.key)}
+        >
+          {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
+          <span className="pricing-plan__header">{g.name}</span>
+          <span className="pricing-plan__price">₹{defaultPlan.rates[category.key] || 0}</span>
+          <span className="pricing-plan__note">{defaultPlan.basis}</span>
+          {defaultPlan.featured && <span className="pricing-plan__star">★</span>}
+          <span className="pricing-plan__cta">Get Started</span>
+        </button>
+      );
+    });
+  }
 
   return (
     <div className="booking-page">
@@ -152,94 +202,35 @@ export default function BookingPage() {
         <h2 className="pricing-section__title">Workspace Access Plans</h2>
         <p className="pricing-section__subtitle">Choose the perfect plan for your professional needs</p>
 
-        <div className="pricing-tabs">
-          <button
-            type="button"
-            className={`pricing-tab${activeGroup === 'short-term' ? ' pricing-tab--active' : ''}`}
-            onClick={() => selectGroup('short-term')}
-          >
-            [ Short-Term Passes ]
-          </button>
-          <button
-            type="button"
-            className={`pricing-tab${activeGroup === 'long-term' ? ' pricing-tab--active' : ''}`}
-            onClick={() => selectGroup('long-term')}
-          >
-            [ Long-Term Memberships ]
-          </button>
+        <div className="pricing-group">
+          <h3 className="pricing-group__title">Long-Term Memberships</h3>
+          <div className="pricing-plans">{renderPlanGroups('long-term')}</div>
+          {perks.length > 0 && (
+            <div className="pricing-perks">
+              <h3 className="pricing-perks__title">Included in All Membership Plans:</h3>
+              <ul className="pricing-perks__list">
+                {perks.map((perk) => (
+                  <li key={perk}>{perk}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
-        <div className="pricing-plans">
-          {visiblePlanGroups.map((group) => {
-            const isMulti = group.plans.length > 1;
-            const defaultPlan = group.plans.find((p) => p.featured) || group.plans[group.plans.length - 1];
-            const isSelected = group.plans.some((p) => p.key === selectedPlanKey);
-
-            if (isMulti) {
-              return (
-                <div
-                  key={group.name}
-                  className={`pricing-plan pricing-plan--group${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
-                >
-                  {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
-                  <span className="pricing-plan__header">{group.name}</span>
-                  <div className="pricing-plan__options">
-                    {group.plans.map((p) => (
-                      <div
-                        key={p.key}
-                        role="button"
-                        tabIndex={0}
-                        className={`pricing-plan__option${p.key === selectedPlanKey ? ' pricing-plan__option--selected' : ''}`}
-                        onClick={() => setSelectedPlanKey(p.key)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            setSelectedPlanKey(p.key);
-                          }
-                        }}
-                      >
-                        <span className="pricing-plan__option-price">₹{p.rates[category.key] || 0}</span>
-                        <span className="pricing-plan__option-note">{p.basis}</span>
-                        <span className="pricing-plan__option-cta">Get Started</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            }
-
-            return (
-              <button
-                type="button"
-                key={group.name}
-                className={`pricing-plan${isSelected ? ' pricing-plan--selected' : ''}${defaultPlan.featured ? ' pricing-plan--featured' : ''}`}
-                onClick={() => setSelectedPlanKey(defaultPlan.key)}
-              >
-                {defaultPlan.featured && <span className="pricing-plan__ribbon">Best Value</span>}
-                <span className="pricing-plan__header">{group.name}</span>
-                <span className="pricing-plan__price">₹{defaultPlan.rates[category.key] || 0}</span>
-                <span className="pricing-plan__note">{defaultPlan.basis}</span>
-                {defaultPlan.featured && <span className="pricing-plan__star">★</span>}
-                <span className="pricing-plan__cta">Get Started</span>
-              </button>
-            );
-          })}
+        <div className="pricing-group">
+          <h3 className="pricing-group__title">Short-Term Passes</h3>
+          <div className="pricing-plans">{renderPlanGroups('short-term')}</div>
+          {perks.length > 0 && (
+            <div className="pricing-perks">
+              <h3 className="pricing-perks__title">Included in All Multi-Hour Plans (3H+):</h3>
+              <ul className="pricing-perks__list">
+                {perks.map((perk) => (
+                  <li key={perk}>{perk}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-
-        {perks.length > 0 && (
-          <div className="pricing-perks">
-            <h3 className="pricing-perks__title">
-              {activeGroup === 'short-term'
-                ? 'Included in All Multi-Hour Plans (3H+):'
-                : 'Included in All Membership Plans:'}
-            </h3>
-            <ul className="pricing-perks__list">
-              {perks.map((perk) => (
-                <li key={perk}>{perk}</li>
-              ))}
-            </ul>
-          </div>
-        )}
       </section>
 
       <form className="booking-form" onSubmit={handleSubmit}>
