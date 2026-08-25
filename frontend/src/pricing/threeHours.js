@@ -5,7 +5,7 @@ export default {
   group: 'short-term',
   rates: {
     'common-area':     499,
-    'two-seater-desk': 574,
+    'two-seater-desk': 579,
     'individual-desk': 624,
     'manager-cabin':   674,
   },
