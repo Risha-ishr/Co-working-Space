@@ -5,9 +5,9 @@ export default {
   group: 'short-term',
   featured: true,
   rates: {
-    'common-area':     999,
-    'two-seater-desk': 1149,
-    'individual-desk': 1249,
-    'manager-cabin':   1349,
+    'common-area':     2699, //4-seater desk
+    'two-seater-desk': 2090,
+    'individual-desk': 1699,
+    'manager-cabin':   2350,
   },
 };

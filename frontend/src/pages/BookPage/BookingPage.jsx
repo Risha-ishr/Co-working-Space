@@ -203,7 +203,7 @@ export default function BookingPage() {
         <p className="pricing-section__subtitle">Choose the perfect plan for your professional needs</p>
 
         <div className="pricing-group">
-          <h3 className="pricing-group__title">Long-Term Memberships</h3>
+          <h3 className="pricing-group__title">Long-Term Memberships [ {category.name} ]</h3>
           <div className="pricing-plans">{renderPlanGroups('long-term')}</div>
           {perks.length > 0 && (
             <div className="pricing-perks">
@@ -218,7 +218,7 @@ export default function BookingPage() {
         </div>
 
         <div className="pricing-group">
-          <h3 className="pricing-group__title">Short-Term Passes</h3>
+          <h3 className="pricing-group__title">Short-Term Passes [ {category.name} ]</h3>
           <div className="pricing-plans">{renderPlanGroups('short-term')}</div>
           {perks.length > 0 && (
             <div className="pricing-perks">
