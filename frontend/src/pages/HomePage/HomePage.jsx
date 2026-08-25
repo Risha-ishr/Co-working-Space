@@ -98,7 +98,7 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
       </section>
 
       <section className="seat-section" id="spaces">
-        <h2 className="seat-section__title">Find your seat at QUIET WORK 101</h2>
+        <h2 className="seat-section__title">Find your space at QUIETWORK101</h2>
         <p className="seat-section__subtitle">Space for thought & clarity. Choose your space now</p>
         <a className="btn btn--navy" onClick={() => navigate('/seat')}>
           Book Seat

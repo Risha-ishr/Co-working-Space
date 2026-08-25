@@ -294,7 +294,20 @@ body {
 .hero-banner__ctas {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px;
+}
+
+.hero-banner__ctas .btn--navy {
+  /* padding: 16px 32px; */
+  padding: 10px 32px;
+  font-size: 1.15rem;
+}
+
+.hero-banner__ctas .btn--outline {
+  /* padding: 16px 18px; */
+  padding: 10px 14px;
+  font-size: 0.8rem;
 }
 
 .hero-banner__media img {
@@ -438,6 +451,11 @@ body {
   text-align: center;
   color: var(--text-muted);
   margin: 0 0 32px;
+}
+
+.seat-section .btn--navy {
+  padding: 10px 32px;
+  font-size: 1.15rem;
 }
 
 .seat-grid {

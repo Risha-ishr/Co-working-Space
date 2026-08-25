@@ -31,7 +31,7 @@ export default function SeatPage() {
       </a>
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
-        <h1 className='seat-section__title'>Find your seat at QUIET WORK 101</h1>
+        <h1 className='seat-section__title'>Find your space at QUIETWORK101</h1>
         <p>Pick a seating category, choose your time, and you&apos;re set.</p>
       </section>
 
