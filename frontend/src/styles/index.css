@@ -48,7 +48,7 @@ body {
 }
 
 .navbar__logo {
-  width: 200px;
+  width: 120px;
   height: 70px;
   flex-shrink: 0;
   border-radius: 25%;
@@ -68,7 +68,7 @@ body {
 .navbar__brand-name {
   font-weight: 800;
   line-height: 1.15;
-  color: var(--navy);
+  color: #4d6277;
   font-size: 1rem;
   letter-spacing: 0.01em;
 }
