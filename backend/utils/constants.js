@@ -16,7 +16,7 @@ const SEAT_CATEGORIES = [
   {
     key: 'two-seater-desk',
     name: '2-Seater Window View',
-    capacity: 4,
+    capacity: 2,
     smalldescription: 'Two desks by the window, with room to spread out.',
     description: 'Enjoy a more relaxed work setting with natural light and a window-side view.With a wall behind for complete privacy. Perfect for professionals looking for a quieter, comfortable workspace with a little more openness and visual breathing room.Enjoy quiet work along side a walking passage, a glimpse of international business news, an in house coffee/snack station.'
   },
