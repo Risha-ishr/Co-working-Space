@@ -1,7 +1,7 @@
 const SEAT_CATEGORIES = [
   {
     key: 'common-area',
-    name: '4-Seater Desk - Non View',
+    name: '4 Seater Desk - View',
     capacity: 4,
     smalldescription: '4 seats facing each other.',
     description: 'A quiet, professional shared workspace designed for focused work. Ideal for consultants, remote professionals and small teams who need a productive desk without the distractions of a large coworking floor.',
