@@ -5,7 +5,7 @@ const HomePage = () => {
   { icon: '🛡️', title: 'Premium & Private', desc: 'Quiet, professional and interview-ready spaces.' },
   { icon: '👥', title: 'Built for Business', desc: 'Ideal for meetings, consulting, HR and remote teams.' },
   { icon: '📍', title: 'Prime Location', desc: 'In the heart of Viman Nagar, close to everything.' },
-  { icon: '🏅', title: 'Backed by ISHR', desc: 'Trusted by businesses for recruitment and growth.' },
+  { icon: '🏅', title: 'Velorises', desc: 'Trusted by businesses for recruitment and growth.' },
 ];
 const LANDMARKS = [
   { icon: '✈️', name: 'Pune Airport', time: '8 min', distance: '3.2 km' },
