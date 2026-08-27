@@ -5,9 +5,9 @@ export default {
   group: 'long-term',
   featured: true,
   rates: {
-    'common-area':     27000,
+    'common-area':     23350,
     'two-seater-desk': 20850,
     'individual-desk': 17000,
-    'manager-cabin':   23350,
+    'manager-cabin':   27000,
   },
 };

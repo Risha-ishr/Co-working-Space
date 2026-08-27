@@ -4,9 +4,9 @@ export default {
   basis: '5 working days/week',
   group: 'long-term',
   rates: {
-    'common-area':     92500,
+    'common-area':     80900,
     'two-seater-desk': 72000,
     'individual-desk': 57500,
-    'manager-cabin':   80900,
+    'manager-cabin':   92500,
   },
 };
