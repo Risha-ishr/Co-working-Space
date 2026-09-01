@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const INTERVAL_MS = 10000;
+const INTERVAL_MS = 5000;
 
 export default function Carousel({ slides }) {
   const [index, setIndex] = useState(0);

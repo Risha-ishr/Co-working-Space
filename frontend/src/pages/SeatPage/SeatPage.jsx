@@ -29,6 +29,11 @@ export default function SeatPage() {
       <a className="back-link" onClick={() => navigate('/')}>
         ← Back to Home
       </a>
+      <div className="seat-page__floor-plan-cta" style={{ margin: '12px 0' }}>
+        <a className="btn btn--navy" onClick={() => navigate('/floor-plan')}>
+          🗺️ View Floor Plan
+        </a>
+      </div>
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
         <h1 className='seat-section__title'>Find your space at QUIETWORK101</h1>

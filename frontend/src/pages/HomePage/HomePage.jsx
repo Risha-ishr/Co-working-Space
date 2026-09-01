@@ -39,6 +39,9 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
             <a className="btn btn--outline" onClick={() =>  navigate('/visit')}>
               👤 Schedule a Meeting
             </a>
+            <a className="btn btn--outline" onClick={() => navigate('/floor-plan')}>
+              🗺️ View Floor Plan
+            </a>
           </div>
         </div>
 
