@@ -7,9 +7,10 @@
   --accent: #2f5e4f;
   --accent-dark: #234437;
   --danger: #b3261e;
-  --navy: #16294f;
-  --navy-dark: #0e1c38;
+  --navy: #4c6176;
+  --navy-dark: #354453;
   --gold: #c9922a;
+  --moss: #a5b395;
 }
 
 * {
@@ -68,7 +69,7 @@ body {
 .navbar__brand-name {
   font-weight: 800;
   line-height: 1.15;
-  color: #4d6277;
+  color: var(--navy);
   font-size: 1rem;
   letter-spacing: 0.01em;
 }
@@ -711,7 +712,7 @@ body {
 }
 
 .pricing-plan--featured {
-  background: #e3f0ea;
+  background: var(--moss);
   border-color: var(--accent-dark);
 }
 
@@ -817,7 +818,7 @@ body {
 }
 
 .pricing-plan--featured .pricing-plan__cta {
-  background: #e3f0ea;
+  background: var(--moss);
   border-color: var(--accent-dark);
 }
 
@@ -846,7 +847,7 @@ body {
   padding: 20px 24px;
   border: 1px solid #c9a227;
   border-radius: 12px;
-  background: #e3f0ea;
+  background: var(--moss);
 }
 
 .pricing-perks__title {
