@@ -708,7 +708,7 @@ body {
 }
 
 .pricing-plan--selected {
-  box-shadow: 0 0 0 3px var(--accent);
+  box-shadow: 0 0 0 3px var(--gold);
 }
 
 .pricing-plan--featured {
