@@ -7,6 +7,7 @@ export default function Confirmation() {
     return <Navigate to="/" replace />;
   }
 
+  
   const { booking, categoryName } = state;
 
   return (
