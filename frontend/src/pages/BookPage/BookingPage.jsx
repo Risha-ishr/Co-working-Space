@@ -115,6 +115,7 @@ export default function BookingPage() {
   if (!category) return <p>Loading…</p>;
 
   const isCabin = category.key === 'manager-cabin';
+  const allowAdditionalSeat = category.key !== 'individual-desk';
   const canSubmit = availability?.available && !submitting;
 
   const selectedPlan = PRICING_PLANS.find((p) => p.key === selectedPlanKey) || PRICING_PLANS[0];
@@ -279,13 +280,15 @@ export default function BookingPage() {
             ))}
           </select>
         </label>
-        <button
-          type="button"
-          className={additionalSeat ? "add-seat-selected" : "add-seat-btn"}
-          onClick={() => setAdditionalSeat((v) => !v)}
-        >
-          {additionalSeat ? 'Seat Selected' : 'Book Additional Seat'}
-        </button>
+        {allowAdditionalSeat && (
+          <button
+            type="button"
+            className={additionalSeat ? "add-seat-selected" : "add-seat-btn"}
+            onClick={() => setAdditionalSeat((v) => !v)}
+          >
+            {additionalSeat ? 'Seat Selected' : 'Book Additional Seat'}
+          </button>
+        )}
 
         {isCabin && (
           <label>
