@@ -18,8 +18,8 @@ const LANDMARKS = [
 const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
   return (
     <div>
-      <h1>Welcome to the Home Page</h1>
-      <p>This is the home page content.</p>
+      <h1>Welcome to the Quiet Space </h1>
+      {/* <p>This is the home page content.</p> */}
             <section className="hero-banner" id="home">
         <div className="hero-banner__content">
           <p className="hero-banner__eyebrow">Executive Workspace near Pune Airport</p>
