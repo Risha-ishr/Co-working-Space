@@ -6,6 +6,7 @@ const seatCategoriesRouter = require('./routes/seatCategories');
 const bookingsRouter = require('./routes/bookings');
 const visitsRouter = require('./routes/visits');
 const paymentsRouter = require('./routes/payments');
+const freshbooksAuthRouter = require('./routes/freshbooksAuth');
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use('/api/seat-categories', seatCategoriesRouter);
 app.use('/api/bookings', bookingsRouter);
 app.use('/api/visits', visitsRouter);
 app.use('/api/payments', paymentsRouter);
+app.use('/auth/freshbooks', freshbooksAuthRouter);
 
 const PORT = process.env.PORT || 5000;
 

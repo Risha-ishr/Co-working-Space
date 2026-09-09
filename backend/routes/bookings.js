@@ -2,7 +2,7 @@ const express = require('express');
 const Booking = require('../models/Booking');
 const SeatCategory = require('../models/SeatCategory');
 const { validateFields, checkAvailability, occupancyOf } = require('../utils/validateBooking');
-const { findOrCreateClient, createInvoice } = require('../utils/freshbooks');
+const { findOrCreateClient, createInvoice, isConnected } = require('../utils/freshbooks');
 
 const router = express.Router();
 
@@ -50,7 +50,7 @@ router.post('/', async (req, res) => {
   });
 
   // Create FreshBooks invoice (non-blocking on failure so booking always saves)
-  if (process.env.FRESHBOOKS_ACCOUNT_ID && Number(amount) > 0) {
+  if (Number(amount) > 0 && (await isConnected())) {
     try {
       const clientId = await findOrCreateClient(name.trim(), email.trim().toLowerCase());
       const description = `${planName || planKey || 'Booking'} — ${categoryDoc.name} | ${date} ${startTime}–${endTime}`;
