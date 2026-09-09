@@ -7,12 +7,12 @@ export default function Confirmation() {
     return <Navigate to="/" replace />;
   }
 
-  
   const { booking, categoryName } = state;
+  const isPaid = booking.paymentStatus === 'paid';
 
   return (
     <div className="confirmation">
-      <h2>Booking confirmed!</h2>
+      <h2>Booking Confirmed!</h2>
       <ul className="confirmation__details">
         <li>
           <strong>Seat:</strong> {categoryName}
@@ -37,8 +37,36 @@ export default function Confirmation() {
         <li>
           <strong>Additional Seat:</strong> {booking.additionalSeat ? 'Seat Selected' : 'Not selected'}
         </li>
+        {booking.planName && (
+          <li>
+            <strong>Plan:</strong> {booking.planName}
+          </li>
+        )}
+        {booking.amount > 0 && (
+          <li>
+            <strong>Amount:</strong> ₹{booking.amount}
+          </li>
+        )}
+        <li>
+          <strong>Payment:</strong>{' '}
+          <span className={isPaid ? 'payment-status--paid' : 'payment-status--pending'}>
+            {isPaid ? 'Paid' : 'Pending'}
+          </span>
+        </li>
       </ul>
-      <Link to="/" className="btn btn--primary">
+
+      {!isPaid && booking.paymentLink && (
+        <a
+          href={booking.paymentLink}
+          className="btn btn--primary"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Pay Now — ₹{booking.amount}
+        </a>
+      )}
+
+      <Link to="/" className="btn btn--secondary" style={{ marginTop: '0.75rem', display: 'inline-block' }}>
         Book another seat
       </Link>
     </div>

@@ -94,7 +94,15 @@ export default function BookingPage() {
     setSubmitError('');
     setSubmitting(true);
     try {
-      const res = await client.post('/bookings', { category: categoryKey, ...form, additionalSeat });
+      const res = await client.post('/bookings', {
+        category: categoryKey,
+        ...form,
+        additionalSeat,
+        planKey: selectedPlanKey,
+        planName: selectedPlan.name,
+        seatCount,
+        amount: estimatedPrice,
+      });
       navigate('/confirmation', { state: { booking: res.data, categoryName: category.name } });
     } catch (err) {
       setSubmitError(err.response?.data?.error || 'Something went wrong. Please try again.');

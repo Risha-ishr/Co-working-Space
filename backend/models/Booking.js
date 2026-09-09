@@ -12,6 +12,16 @@ const bookingSchema = new mongoose.Schema({
   endTime: { type: String, required: true }, // HH:mm
   guests: { type: Number, default: 0 },
   additionalSeat: { type: Boolean, default: false },
+  // Pricing
+  planKey: { type: String, default: '' },
+  planName: { type: String, default: '' },
+  seatCount: { type: Number, default: 1 },
+  amount: { type: Number, default: 0 },
+  // FreshBooks invoice
+  freshbooksClientId: { type: String, default: '' },
+  freshbooksInvoiceId: { type: String, default: '' },
+  paymentLink: { type: String, default: '' },
+  paymentStatus: { type: String, enum: ['pending', 'paid', 'failed'], default: 'pending' },
   createdAt: { type: Date, default: Date.now },
 });
 

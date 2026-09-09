@@ -2,6 +2,7 @@ const express = require('express');
 const Booking = require('../models/Booking');
 const SeatCategory = require('../models/SeatCategory');
 const { validateFields, checkAvailability, occupancyOf } = require('../utils/validateBooking');
+const { findOrCreateClient, createInvoice } = require('../utils/freshbooks');
 
 const router = express.Router();
 
@@ -20,7 +21,7 @@ router.get('/availability', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { category, name, email, date, startTime, endTime, guests, additionalSeat } = req.body;
+  const { category, name, email, date, startTime, endTime, guests, additionalSeat, planKey, planName, seatCount, amount } = req.body;
 
   const categoryDoc = await SeatCategory.findOne({ key: category });
   const fieldError = validateFields({ category, name, email, date, startTime, endTime, guests }, categoryDoc);
@@ -41,7 +42,35 @@ router.post('/', async (req, res) => {
     endTime,
     guests: category === 'manager-cabin' ? Number(guests) || 0 : 0,
     additionalSeat: Boolean(additionalSeat),
+    planKey: planKey || '',
+    planName: planName || '',
+    seatCount: Number(seatCount) || 1,
+    amount: Number(amount) || 0,
+    paymentStatus: 'pending',
   });
+
+  // Create FreshBooks invoice (non-blocking on failure so booking always saves)
+  if (process.env.FRESHBOOKS_ACCOUNT_ID && Number(amount) > 0) {
+    try {
+      const clientId = await findOrCreateClient(name.trim(), email.trim().toLowerCase());
+      const description = `${planName || planKey || 'Booking'} — ${categoryDoc.name} | ${date} ${startTime}–${endTime}`;
+      const { invoiceId, paymentLink } = await createInvoice({
+        clientId,
+        description,
+        amount: Number(amount),
+        date,
+      });
+      await Booking.findByIdAndUpdate(booking._id, {
+        freshbooksClientId: clientId,
+        freshbooksInvoiceId: invoiceId,
+        paymentLink,
+      });
+      return res.status(201).json({ ...booking.toObject(), freshbooksClientId: clientId, freshbooksInvoiceId: invoiceId, paymentLink });
+    } catch (err) {
+      console.error('FreshBooks invoice creation failed:', err.message);
+      // Respond with the booking even if FreshBooks fails
+    }
+  }
 
   res.status(201).json(booking);
 });
