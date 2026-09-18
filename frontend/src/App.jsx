@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
 import SeatPage from './pages/SeatPage/SeatPage.jsx';
 import HomePage from './pages/HomePage/HomePage.jsx';
 import BookingPage from './pages/BookPage/BookingPage.jsx';
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/floor-plan" element={<FloorPlanPage />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
