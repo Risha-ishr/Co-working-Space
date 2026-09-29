@@ -6,6 +6,7 @@ export default function Footer() {
         <a href="/contact/">Contact</a>
         <a href="/privacy-policy/">Privacy Policy</a>
         <a href="/terms/">Terms &amp; Conditions</a>
+        <a href="/terms/#cancellation-refund">Cancellation &amp; Refunds</a>
       </div>
       <div className="site-footer__contact">
         <span>101 DNK Square, Airport Road, Viman Nagar, Pune, Maharashtra 411014, India</span>

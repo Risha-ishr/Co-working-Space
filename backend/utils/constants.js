@@ -29,8 +29,8 @@ const SEAT_CATEGORIES = [
   },
 ];
 
-const OPENING_TIME = '08:00';
-const CLOSING_TIME = '19:00';
+const OPENING_TIME = '07:30';
+const CLOSING_TIME = '21:30';
 const BUFFER_MINUTES = 30;
 const MAX_CABIN_GUESTS = 2;
 

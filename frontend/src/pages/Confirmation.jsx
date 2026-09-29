@@ -1,7 +1,16 @@
+import { useEffect, useRef } from 'react';
 import { useLocation, Link, Navigate } from 'react-router-dom';
+import { trackBookingConversion } from '../analytics.js';
 
 export default function Confirmation() {
   const { state } = useLocation();
+  const tracked = useRef(false);
+
+  useEffect(() => {
+    if (!state?.booking || tracked.current) return;
+    tracked.current = true;
+    trackBookingConversion({ value: state.amount, transactionId: state.booking._id });
+  }, [state]);
 
   if (!state?.booking) {
     return <Navigate to="/" replace />;

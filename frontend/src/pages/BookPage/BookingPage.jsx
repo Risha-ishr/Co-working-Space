@@ -95,7 +95,7 @@ export default function BookingPage() {
     setSubmitting(true);
     try {
       const res = await client.post('/bookings', { category: categoryKey, ...form, additionalSeat });
-      navigate('/confirmation', { state: { booking: res.data, categoryName: category.name } });
+      navigate('/confirmation', { state: { booking: res.data, categoryName: category.name, amount: estimatedPrice } });
     } catch (err) {
       setSubmitError(err.response?.data?.error || 'Something went wrong. Please try again.');
     } finally {
@@ -251,8 +251,8 @@ export default function BookingPage() {
             Start time
             <input
               type="time"
-              min="08:00"
-              max="19:00"
+              min="07:30"
+              max="21:30"
               value={form.startTime}
               onChange={(e) => updateField('startTime', e.target.value)}
               required
@@ -262,15 +262,15 @@ export default function BookingPage() {
             End time
             <input
               type="time"
-              min="08:00"
-              max="19:00"
+              min="07:30"
+              max="21:30"
               value={form.endTime}
               onChange={(e) => updateField('endTime', e.target.value)}
               required
             />
           </label>
         </div>
-        <p className="hint">Open 8:00 AM – 7:00 PM, every day. A 30-minute gap is kept after each booking.</p>
+        <p className="hint">Open 7:30 AM – 9:30 PM, every day. A 30-minute gap is kept after each booking.</p>
 
         <label>
           Number of seats
@@ -339,6 +339,13 @@ export default function BookingPage() {
             <span className="booking-total__value">₹{estimatedPrice}</span>
           </div>
         )}
+
+        <p className="hint">
+          Free cancellation up to 24 hours before your booking. By confirming, you agree to our{' '}
+          <a href="/terms/" target="_blank" rel="noopener">Terms &amp; Conditions</a>,{' '}
+          <a href="/terms/#cancellation-refund" target="_blank" rel="noopener">Cancellation &amp; Refund Policy</a> and{' '}
+          <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>.
+        </p>
 
         <button type="submit" className="btn btn--primary" disabled={!canSubmit}>
           {submitting ? 'Booking…' : 'Confirm Booking'}

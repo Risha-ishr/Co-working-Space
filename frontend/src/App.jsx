@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import SeatPage from './pages/SeatPage/SeatPage.jsx';
@@ -7,7 +8,15 @@ import BookingPage from './pages/BookPage/BookingPage.jsx';
 import Confirmation from './pages/Confirmation.jsx';
 import VisitPage from './pages/VisitPage/VisitPage.jsx';
 import FloorPlanPage from './pages/FloorPlanPage/FloorPlanPage.jsx';
+import { trackPageView } from './analytics.js';
+
 export default function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
+
   return (
     <div className="app">
       <Navbar />
