@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-const HomePage = () => {
-    const navigate = useNavigate();
-    const FEATURES = [
+import { Link } from 'react-router-dom';
+
+const FEATURES = [
   { icon: '🛡️', title: 'Premium & Private', desc: 'Quiet, professional and interview-ready spaces.' },
   { icon: '👥', title: 'Built for Business', desc: 'Ideal for meetings, consulting, HR and remote teams.' },
   { icon: '📍', title: 'Prime Location', desc: 'In the heart of Viman Nagar, close to everything.' },
-  { icon: '🏅', title: 'Velorises', desc: 'Trusted by businesses for recruitment and growth.' },
+  { icon: '📶', title: 'Ready to Work', desc: 'High-speed WiFi, open daily 7:30 AM – 9:30 PM.' },
 ];
+
 const LANDMARKS = [
   { icon: '✈️', name: 'Pune Airport', time: '8 min', distance: '3.2 km' },
   { icon: '🎓', name: 'Symbiosis Law College', time: '6 min', distance: '2.1 km' },
@@ -16,11 +16,12 @@ const LANDMARKS = [
 ];
 
 const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
+
+const HomePage = () => {
   return (
     <div>
-      <h1>Welcome to the Quiet Space </h1>
-      {/* <p>This is the home page content.</p> */}
-            <section className="hero-banner" id="home">
+      <h2>Welcome to the Quiet Space</h2>
+      <section className="hero-banner" id="home">
         <div className="hero-banner__content">
           <p className="hero-banner__eyebrow">Executive Workspace near Pune Airport</p>
           <h1 className="hero-banner__title">
@@ -33,15 +34,15 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
             leaders who value privacy, comfort and professionalism.
           </p>
           <div className="hero-banner__ctas">
-            <a className="btn btn--navy" onClick={() =>  navigate('/seat')}>
+            <Link className="btn btn--navy" to="/seat">
               📅 Book a Seat
-            </a>
-            <a className="btn btn--outline" onClick={() =>  navigate('/visit')}>
+            </Link>
+            <Link className="btn btn--outline" to="/visit">
               👤 Schedule a Meeting
-            </a>
-            <a className="btn btn--outline" onClick={() => navigate('/floor-plan')}>
+            </Link>
+            <Link className="btn btn--outline" to="/floor-plan">
               🗺️ View Floor Plan
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -74,9 +75,9 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
               <br />
               SNo 30, DNK SQUARE, 111-112,
               <br />
-              Airport road, Viman Nagar
+              Airport Road, Viman Nagar
               <br />
-              Pune MAHARASTRA 411014, India
+              Pune, Maharashtra 411014, India
             </p>
           </div>
         </div>
@@ -101,11 +102,11 @@ const GALLERY_IMAGES = [1, 2, 3, 4, 5].map((n) => `/gallery-${n}.jpg`);
       </section>
 
       <section className="seat-section" id="spaces">
-        <h2 className="seat-section__title">Find your space at QUIETWORK101</h2>
+        <h2 className="seat-section__title">Find your space at QUIET WORK 101</h2>
         <p className="seat-section__subtitle">Space for thought & clarity. Choose your space now</p>
-        <a className="btn btn--navy" onClick={() => navigate('/seat')}>
+        <Link className="btn btn--navy" to="/seat">
           Book Seat
-        </a>
+        </Link>
       </section>
     </div>
   );
