@@ -123,7 +123,7 @@ export default function FloorPlanPage() {
           </>
         ) : (
           <a className="btn btn--navy" onClick={() => navigate('/seat')}>
-            Book a Seat
+            Book Your Space
           </a>
         )}
       </div>
