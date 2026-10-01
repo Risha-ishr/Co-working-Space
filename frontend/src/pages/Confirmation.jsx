@@ -48,7 +48,7 @@ export default function Confirmation() {
         </li>
       </ul>
       <Link to="/" className="btn btn--primary">
-        Book another seat
+        Book another space
       </Link>
     </div>
   );
