@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import client from '../../api/client.js';
 import SeatCard from '../../components/SeatCard.jsx';
 import Carousel from '../../components/Carousel.jsx';
@@ -7,13 +7,11 @@ import Carousel from '../../components/Carousel.jsx';
 const HERO_SLIDES = [
   { src: '/entrance.jpg', alt: 'QUIET WORK 101 entrance' },
   { src: '/hero-office.png', alt: 'QUIET WORK 101 seating area' },
-  { src: '/FourSeatView.jpeg', alt: 'QUIET WORK 101 entrance' },
-  { src: '/TwoSeatBackView.jpeg', alt: 'QUIET WORK 101 seating area' },
-  // { src: '/WindowView.jpeg', alt: 'QUIET WORK 101 seating area' },
+  { src: '/FourSeatView.jpeg', alt: 'QUIET WORK 101 four-seat workspace' },
+  { src: '/TwoSeatBackView.jpeg', alt: 'QUIET WORK 101 two-seat workspace' },
 ];
 
 export default function SeatPage() {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
 
@@ -21,22 +19,24 @@ export default function SeatPage() {
     client
       .get('/seat-categories')
       .then((res) => setCategories(res.data))
-      .catch(() => setError('Could not load seating options. Is the backend running?'));
+      .catch(() =>
+        setError('Seating options are temporarily unavailable. Please call +91 91755 36918 to book.')
+      );
   }, []);
 
   return (
     <div className="home">
-      <a className="back-link" onClick={() => navigate('/')}>
+      <Link className="back-link" to="/">
         ← Back to Home
-      </a>
+      </Link>
       <div className="seat-page__floor-plan-cta" style={{ margin: '12px 0' }}>
-        <a className="btn btn--navy" onClick={() => navigate('/floor-plan')}>
+        <Link className="btn btn--navy" to="/floor-plan">
           🗺️ View Floor Plan
-        </a>
+        </Link>
       </div>
       <section className="hero">
         <Carousel slides={HERO_SLIDES} />
-        <h1 className='seat-section__title'>Find your space at QUIETWORK101</h1>
+        <h1 className="seat-section__title">Find your space at QUIET WORK 101</h1>
         <p>Pick a seating category, choose your time, and you&apos;re set.</p>
       </section>
 
