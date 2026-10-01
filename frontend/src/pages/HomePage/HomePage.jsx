@@ -35,7 +35,7 @@ const HomePage = () => {
           </p>
           <div className="hero-banner__ctas">
             <Link className="btn btn--navy" to="/seat">
-              📅 Book a Seat
+              📅 Book Your Space
             </Link>
             <Link className="btn btn--outline" to="/visit">
               👤 Schedule a Meeting
@@ -105,7 +105,7 @@ const HomePage = () => {
         <h2 className="seat-section__title">Find your space at QUIET WORK 101</h2>
         <p className="seat-section__subtitle">Space for thought & clarity. Choose your space now</p>
         <Link className="btn btn--navy" to="/seat">
-          Book Seat
+          Book Your Space
         </Link>
       </section>
     </div>
