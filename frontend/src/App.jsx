@@ -21,7 +21,7 @@ const PAGE_META = {
       'QUIET WORK 101 is a professional coworking space in Viman Nagar, Pune offering individual coworking seats, private workspaces and meeting rooms.',
   },
   '/seat': {
-    title: 'Book a Seat | QUIET WORK 101, Viman Nagar, Pune',
+    title: 'Book Your Space | QUIET WORK 101, Viman Nagar, Pune',
     description:
       'Book an individual desk, private cabin or meeting room at QUIET WORK 101 in Viman Nagar, Pune.',
   },
